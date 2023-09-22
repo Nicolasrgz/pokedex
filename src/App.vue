@@ -1,0 +1,87 @@
+<script setup>
+import { ref, onMounted } from 'vue'
+
+const pokemons = ref([])
+const isLoading = ref(true)
+const initialLoad = ref(true)
+
+onMounted(async () => {
+  // Simula un tiempo de carga inicial
+  setTimeout(async () => {
+    initialLoad.value = false
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon')
+    const data = await response.json()
+    pokemons.value = data.results
+  }, 3000) // Ajusta este valor según el tiempo de carga que desees
+})
+
+const loadPokemons = () => {
+  isLoading.value = false
+}
+</script>
+
+<template>
+  <div v-if="initialLoad" class="d-flex justify-content-center align-items-center " style="height: 100vh;">
+    <svg class="spinner" width="106" height="106" viewBox="0 0 106 106" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="53" cy="53" r="51" fill="white" stroke="#333333" stroke-width="4"/>
+      <mask id="mask0_12_49" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="106" height="53">
+      <rect width="106" height="53" fill="#C4C4C4"/>
+      </mask>
+      <g mask="url(#mask0_12_49)">
+      <circle cx="53" cy="53" r="51" fill="#F22539" stroke="#333333" stroke-width="4"/>
+      </g>
+      <path d="M0.392578 53H105.607" stroke="#333333" stroke-width="4"/>
+      <circle cx="53" cy="52.9998" r="20.8074" fill="white"/>
+      <circle cx="53" cy="52.9998" r="18.8074" stroke="#333333" stroke-width="4"/>
+      <path d="M91.731 36.7077C86.9398 25.3318 77.283 16.5081 65.3667 12.8428" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="53" cy="53.0004" r="10.3852" stroke="#808080" stroke-width="2"/>
+    </svg>
+  </div>
+
+  <div v-else-if="isLoading" class="welcome-page d-flex flex-column justify-content-center align-items-center g-5" style="height: 100vh;">
+    <img class="pikachu-img-welcome" src="./assets/img/pikachu-welcome.png" alt="">
+
+    <h1>Welcome to Pokedex</h1>
+    <p class="text-center"> the digital encyclopedia created by professor Oak is an invaluable tool to Trainers in the pokemond world</p>
+    <button class="button-welcome" @click="loadPokemons">Get Started</button>
+  </div>
+
+<div v-else class="d-flex flex-column justify-content-center align-items-center" >
+
+  <div class="group d-flex align-items-center " >
+    <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><g><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5-7.5z"></path></g></svg>
+    <input placeholder="Search" type="search" class="input">
+  </div>
+  <div>
+    <div v-for="pokemon in pokemons" :key="pokemon.name">
+      <div class="container-pokemons d-flex justify-content-between ">
+        <p >{{ pokemon.name }}</p>
+        <i role="button" class="bi bi-star-fill"></i>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+</template>
+
+
+
+
+
+<style scoped>
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.vue:hover {
+  filter: drop-shadow(0 0 2em #42b883aa);
+}
+</style>
