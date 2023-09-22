@@ -23,11 +23,12 @@
   line-height: 28px;
   align-items: center;
   position: relative;
-  width: 20rem;
+  width: 28rem;
+  margin: 1rem;
  }
  
  .input {
-  width: 20rem;
+  width: 28rem;
   height: 40px;
   line-height: 28px;
   padding: 0 1rem;
@@ -70,9 +71,29 @@
 }
 
 .container-pokemons{
-  width: 20rem;
+  width:26rem;
   margin: 0.4rem;
 
 } 
  
+.all-button{
+  width: 12.3rem;
+  height: 2.4rem;
+  border-radius: 30px;
+  background-color: #F22539;
+  color: white;
+  border: 0;
+}
  
+.favourites-btn{
+  width: 12.3rem;
+  height: 2.4rem;
+  border-radius: 30px;
+  background-color: #BFBFBF;
+  color: white;
+  border: 0;
+}
+
+.buttons-footer{
+  gap: 2rem;
+}
