@@ -8,7 +8,7 @@
   width: 8rem;
   height: 2.4rem;
   border-radius: 30px;
-  background-color: red;
+  background-color: #F22539;
   color: white;
   border: 0;
 }
@@ -18,9 +18,17 @@
   gap: 2rem;
 }
 
+.font-p-welcome{
+  font-size: 20px;
+}
+
+.div-p-welcome{
+  width: 50rem;
+}
+
 .pikachu-img-welcome{
-  width: 25rem;
-  height: 21rem;
+  width: 23rem;
+  height: 18rem;
   margin-bottom: 1rem;
 }
 
@@ -79,9 +87,16 @@
 .container-pokemons{
   width:26rem;
   margin: 0.4rem;
-
+  background-color: #fff;
 } 
  
+.container-pokemons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
 .all-button{
   width: 12.3rem;
   height: 2.4rem;
@@ -107,11 +122,11 @@
 
 .color-i-favourite {
   color: gray;
-  font-size: 25px;
+  font-size: 40px;
 }
 
 .color-p-favourite {
-  font-size: 20px;
+  font-size: 25px;
 }
 
 .favourite {

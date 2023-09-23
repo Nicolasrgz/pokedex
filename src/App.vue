@@ -86,8 +86,10 @@ const displayedPokemons = computed(() => {
   <div v-else-if="isLoading" class="welcome-page d-flex flex-column justify-content-center align-items-center g-5" style="height: 100vh;">
     <img class="pikachu-img-welcome" src="./assets/img/pikachu-welcome.png" alt="">
 
-    <h1>Welcome to Pokedex</h1>
-    <p class="text-center"> the digital encyclopedia created by professor Oak is an invaluable tool to Trainers in the pokemond world</p>
+    <h1>Welcome to Pokédex</h1>
+    <div class="div-p-welcome">
+      <p class="text-center font-p-welcome"> The digital encyclopedia created by Professor Oak is an invaluable tool to Trainers in the Pokémon world</p>
+    </div>
     <button class="button-welcome" @click="loadPokemons">Get Started</button>
   </div>
 
@@ -99,11 +101,12 @@ const displayedPokemons = computed(() => {
   </div>
 
   <div v-for="pokemon in displayedPokemons" :key="pokemon.name">
-    <div class="container-pokemons d-flex justify-content-between ">
-      <p class="color-p-favourite"><b>{{ pokemon.name }}</b></p>
+    <div class="container-pokemons d-flex justify-content-between align-items-center">
+      <h4 class="color-p-favourite">{{ pokemon.name }}</h4>
       <i role="button" class="bi bi-star-fill" :class="{ 'favourite': pokemon.isFavourite }" @click="toggleFavourite(pokemon)"></i>
     </div>
-  </div>
+</div>
+
 
     <div class="" v-if="displayedPokemons.length <= 0">
         <h3>UH-OH</h3>
