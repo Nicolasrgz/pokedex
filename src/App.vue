@@ -1,5 +1,6 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
+
 
 const pokemons = ref([])
 const isLoading = ref(true)
@@ -11,13 +12,58 @@ onMounted(async () => {
     initialLoad.value = false
     const response = await fetch('https://pokeapi.co/api/v2/pokemon')
     const data = await response.json()
-    pokemons.value = data.results
-  }, 3000) // Ajusta este valor según el tiempo de carga que desees
+    pokemons.value = data.results.map(pokemon => ({ ...pokemon, isFavourite: false }))
+  }, 2000) // Ajusta este valor según el tiempo de carga que desees
 })
 
 const loadPokemons = () => {
   isLoading.value = false
 }
+
+const search = ref('')
+
+const filteredPokemons = computed(() => {
+  if (search.value) {
+    return pokemons.value.filter(pokemon => pokemon.name.includes(search.value))
+  } else {
+    return pokemons.value
+  }
+})
+
+const toggleFavourite = (pokemon) => {
+  pokemon.isFavourite = !pokemon.isFavourite
+}
+
+const showFavourites = ref(false)
+
+const showAll = ref(true)
+
+const toggleShowFavourites = () => {
+  showFavourites.value = true
+  showAll.value = false
+}
+
+const toggleShowAll = () => {
+  showAll.value = true
+  showFavourites.value = false
+}
+
+const displayedPokemons = computed(() => {
+  let results = pokemons.value
+
+  if (showFavourites.value && pokemons.value.some(pokemon => pokemon.isFavourite)) {
+    results = results.filter(pokemon => pokemon.isFavourite)
+  }
+
+  if (search.value) {
+    results = results.filter(pokemon => pokemon.name.includes(search.value))
+  }
+
+  return results
+})
+
+
+
 </script>
 
 <template>
@@ -50,43 +96,25 @@ const loadPokemons = () => {
 
   <div class="group d-flex align-items-center " >
     <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><g><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5-7.5z"></path></g></svg>
-    <input placeholder="Search" type="search" class="input">
+    <input placeholder="Search" type="search" class="input" v-model="search">
   </div>
 
-    <div v-for="pokemon in pokemons" :key="pokemon.name">
-      <div class="container-pokemons d-flex justify-content-between ">
-        <p >{{ pokemon.name }}</p>
-        <i role="button" class="bi bi-star-fill"></i>
-      </div>
+  <div v-for="pokemon in displayedPokemons" :key="pokemon.name">
+    <div class="container-pokemons d-flex justify-content-between ">
+      <p class="color-p-favourite"><b>{{ pokemon.name }}</b></p>
+      <i role="button" class="bi bi-star-fill" :class="{ 'favourite': pokemon.isFavourite }" @click="toggleFavourite(pokemon)"></i>
     </div>
+  </div>
+
 
     <div class="buttons-footer d-flex">
       <div>
-        <button class="all-button"><i class="bi bi-list-ul"></i> All</button>
+        <button class="all-button" @click="toggleShowAll"><i class="bi bi-list-ul"></i> All</button>
       </div>
       <div>
-        <button class="favourites-btn"><i class="bi bi-star-fill"></i> Favourites</button>
+        <button class="favourites-btn" @click="toggleShowFavourites"><i class="bi bi-star-fill"></i> Favourites</button>
       </div>
     </div>
 
-</div>git
+</div>
 </template>
-
-
-
-
-
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>

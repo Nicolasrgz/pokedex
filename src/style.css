@@ -96,4 +96,18 @@
 
 .buttons-footer{
   gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.color-i-favourite {
+  color: gray;
+  font-size: 25px;
+}
+
+.color-p-favourite {
+  font-size: 20px;
+}
+
+.favourite {
+  color: #ECA539;
 }
