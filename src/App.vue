@@ -7,13 +7,8 @@ const initialLoad = ref(true)
 const search = ref('')
 const showFavourites = ref(false)
 const showAll = ref(true)
-const selectedPokemon = ref(null)
+const selectedPokemon = ref({})
 const showModal = ref(false)
-const name = ref('')
-const height = ref('')
-const weight = ref('')
-const type = ref('')
-
 
 onMounted(async () => {
   // Simula un tiempo de carga inicial
@@ -32,19 +27,11 @@ const getPokemonDetails = async (pokemonName) => {
     const data = await response.json()
     selectedPokemon.value = data
     showModal.value = true
-    name.value = selectedPokemon.value.name
-    weight.value = selectedPokemon.value.weight
-    height.value = selectedPokemon.value.height
-    type.value = selectedPokemon.value.types.map(type => type.type.name).join(', ')
-    console.log(name.value)
-    console.log(weight.value)
-    console.log(height.value)
-    console.log(type.value)
+    console.log(selectedPokemon)
   } catch (error) {
     console.error(error)
   }
 }
-
 
 const loadPokemons = () => {
   isLoading.value = false
@@ -131,25 +118,6 @@ const displayedPokemons = computed(() => {
       </div>
     </div>
 
-    <div v-if="showModal" class="modal">
-      <button @click="showModal = false">Cerrar</button>
-      <h2>{{ name }}</h2>
-      <p>Peso: {{ weight }}</p>
-      <p>Altura: {{ height }}</p>
-      <p>Tipo: {{ type }}</p>
-    </div>
-
-    <!-- Botón para abrir el modal de prueba -->
-    <button @click="showTestModal = true">Abrir Modal</button>
-
-    <!-- Modal de prueba -->
-    <div v-if="showTestModal" class="modal">
-      <button @click="showTestModal = false">Cerrar</button>
-      <h2>Título del Modal de Prueba</h2>
-      <p>Contenido del modal de prueba...</p>
-    </div>
-
-
     <div class="" v-if="displayedPokemons.length <= 0">
       <h3>UH-OH</h3>
       <h4>You look lost on your journey!</h4>
@@ -164,13 +132,35 @@ const displayedPokemons = computed(() => {
         <button class="favourites-btn" @click="toggleShowFavourites"><i class="bi bi-star-fill"></i> Favourites</button>
       </div>
     </div>
+
+    <div v-if="showModal" class="modal">
+  <div class="modal-content">
+    <button class="close" @click="showModal = false">×</button>
+    <!-- Verificar si selectedPokemon está definido antes de acceder a sus propiedades -->
+    <div class="d-flex justify-content-center align-items-center">
+      <img class="img-modal" :src="selectedPokemon.sprites.front_default" alt="">
+    </div>
+    <div>
+      <h2>{{ selectedPokemon.name }}</h2>
+      <p>Peso: {{ selectedPokemon.weight }}</p>
+      <p>Altura: {{ selectedPokemon.height }}</p>
+      <p>Tipo: {{ selectedPokemon.types ? selectedPokemon.types.map(type => type.type.name).join(', ') : '' }}</p>
+    </div>
+    <div class="d-flex justify-content-between align-items-center">
+        <button class="all-button" @click="toggleShowAll"><i class="bi bi-list-ul"></i> All</button>
+        <i class="bi bi-star-fill"></i>
+      </div>
   </div>
+</div>
+
+
+</div>
 </template>
 
 <style scoped>
 /* Estilos para el modal y su contenido */
 .modal {
-  display: none;
+  display: block; /* Cambia "none" a "block" para que el modal se muestre */
   position: fixed;
   z-index: 1;
   left: 0;
@@ -186,7 +176,7 @@ const displayedPokemons = computed(() => {
   margin: 10% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 33%;
 }
 
 /* Estilos para el botón de cierre (×) en el modal */
