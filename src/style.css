@@ -164,6 +164,28 @@ body{
   color: #ECA539;
 }
 
+.img-modal{
+  width: 8rem;
+}
+
+.btn-name-pokemon{
+  border: none;
+  background-color: transparent;
+}
+
+.i-favourite{
+  color: white;
+  font-size: 20px;
+}
+
+.bi-list-ul{
+  font-size: 25px;
+}
+
+.i-all{
+  margin-right: 0.4rem;
+}
+
 @media only screen and (min-width: 320px) and (max-width:520px){
   .button-welcome{
     width: 8rem;
@@ -191,13 +213,15 @@ body{
   } 
    
   .all-button{
-    width: 7rem;
+    width: 7.5rem;
     height: 2.4rem;
+    font-size: 20px;
   }
    
   .favourites-btn{
-    width: 7rem;
+    width: 7.5rem;
     height: 2.4rem;
+    font-size: 20px;
   }
 
   .color-i-favourite {
@@ -216,27 +240,18 @@ body{
     margin: 1rem;
     gap: 1rem;
   }
+
+  .i-favourite{
+    color: white;
+    font-size: 17px;
+  }
   
-}
+  .bi-list-ul{
+    font-size: 22.5px;
+  }
 
-.img-modal{
-  width: 8rem;
-}
-
-.btn-name-pokemon{
-  border: none;
-  background-color: transparent;
-}
-
-.i-favourite{
-  color: white;
-  font-size: 20px;
-}
-
-.bi-list-ul{
-  font-size: 25px;
-}
-
-.i-all{
-  margin-right: 0.4rem;
+  .buttons-footer{
+    gap: 1rem;
+    margin: 0.5rem;
+  }
 }
