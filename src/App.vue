@@ -13,25 +13,60 @@ const showModal = ref(false)
 onMounted(async () => {
   // Simula un tiempo de carga inicial
   setTimeout(async () => {
-    initialLoad.value = false
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon')
-    const data = await response.json()
-    pokemons.value = data.results.map(pokemon => ({ ...pokemon, isFavourite: false }))
-  }, 2000) // Ajusta este valor según el tiempo de carga que desees
-  console.log(pokemons)
-})
+    initialLoad.value = false;
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon');
+    const data = await response.json();
+    pokemons.value = data.results.map(pokemon => ({ ...pokemon, isFavourite: false }));
+
+    // Verifica si hay Pokémon favoritos en el localStorage
+    const favouritesFromLocalStorage = JSON.parse(localStorage.getItem('favourites'));
+    if (Array.isArray(favouritesFromLocalStorage)) {
+      pokemons.value.forEach(pokemon => {
+        if (favouritesFromLocalStorage.includes(pokemon.name)) {
+          pokemon.isFavourite = true;
+        }
+      });
+    }
+  }, 2000); // Ajusta este valor según el tiempo de carga que desees
+});
 
 const getPokemonDetails = async (pokemonName) => {
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
     const data = await response.json()
-    selectedPokemon.value = data
-    showModal.value = true
-    console.log(selectedPokemon)
+    selectedPokemon.value = data;
+    
+    // Actualizar el estado de favoritos en el modal
+    const mainListPokemon = pokemons.value.find(p => p.name === pokemonName);
+    if (mainListPokemon) {
+      selectedPokemon.value.isFavourite = mainListPokemon.isFavourite;
+    }
+
+    showModal.value = true;
+    // Llamar a copyPokemonInfoToClipboard después de que selectedPokemon se actualice
   } catch (error) {
     console.error(error)
   }
-}
+};
+
+const copyPokemonInfoToClipboard = () => {
+  // Verificar si selectedPokemon tiene datos antes de copiar al portapapeles
+  if (selectedPokemon.value) {
+    const pokemonInfo = [
+      `Nombre: ${selectedPokemon.value.name}`,
+      `Peso: ${selectedPokemon.value.weight}`,
+      `Altura: ${selectedPokemon.value.height}`,
+      `Tipo: ${selectedPokemon.value.types ? selectedPokemon.value.types.map(type => type.type.name).join(', ') : ''}`,
+    ].join(', ');
+
+    navigator.clipboard.writeText(pokemonInfo).then(() => {
+      alert('Información del Pokémon copiada al portapapeles');
+    }).catch((error) => {
+      console.error('Error al copiar al portapapeles:', error);
+    });
+  }
+};
+
 
 const loadPokemons = () => {
   isLoading.value = false
@@ -41,9 +76,25 @@ const backToHome = () => {
   window.location.href = "index.html"
 }
 
-const toggleFavourite = async (pokemon) => {
-  pokemon.isFavourite = !pokemon.isFavourite
-}
+const toggleFavourite = (pokemon) => {
+  const isFavourite = pokemon.isFavourite;
+  pokemon.isFavourite = !isFavourite;
+
+  // Actualizar el estado de favoritos en la lista principal
+  const mainListPokemon = pokemons.value.find(p => p.name === pokemon.name);
+  if (mainListPokemon) {
+    mainListPokemon.isFavourite = !isFavourite;
+  }
+
+  updateLocalStorage();
+};
+
+
+const updateLocalStorage = () => {
+  const favourites = pokemons.value.filter(pokemon => pokemon.isFavourite).map(pokemon => pokemon.name);
+  localStorage.setItem('favourites', JSON.stringify(favourites));
+};
+
 
 const toggleShowFavourites = () => {
   showFavourites.value = true
@@ -147,9 +198,9 @@ const displayedPokemons = computed(() => {
       <p>Tipo: {{ selectedPokemon.types ? selectedPokemon.types.map(type => type.type.name).join(', ') : '' }}</p>
     </div>
     <div class="d-flex justify-content-between align-items-center">
-        <button class="all-button" @click="toggleShowAll"><i class="bi bi-list-ul"></i> All</button>
-        <i class="bi bi-star-fill"></i>
-      </div>
+      <button class="all-button" @click="copyPokemonInfoToClipboard();"><i class="bi bi-clipboard"></i> Copiar al portapapeles</button>
+      <i role="button" class="bi bi-star-fill" :class="{ 'favourite': selectedPokemon.isFavourite }" @click="toggleFavourite(selectedPokemon)"></i>
+    </div>
   </div>
 </div>
 
