@@ -177,10 +177,20 @@ const displayedPokemons = computed(() => {
 
     <div class="buttons-footer d-flex" v-if="!displayedPokemons.length <= 0">
       <div>
-        <button class="all-button" @click="toggleShowAll"><i class="bi bi-list-ul"></i> All</button>
+        <button class="all-button" @click="toggleShowAll">
+          <div class="d-flex justify-content-center align-items-center">
+            <i  class="bi bi-list-ul i-all"></i>
+            All
+          </div>
+        </button>
       </div>
       <div>
-        <button class="favourites-btn" @click="toggleShowFavourites"><i class="bi bi-star-fill"></i> Favourites</button>
+        <button class="favourites-btn" @click="toggleShowFavourites">
+          <div class="d-flex justify-content-center align-items-center">
+            <i class="bi bi-star-fill i-favourite i-all"></i>
+             Favorites
+          </div>
+        </button>
       </div>
     </div>
 

@@ -125,13 +125,15 @@ body{
   margin-right: 0.6rem;
 }
 
+
 .all-button{
-  width: 12.3rem;
+  width: 13.7rem;
   height: 2.4rem;
   border-radius: 30px;
   background-color: #F22539;
   color: white;
   border: 0;
+  font-size: 21px;
 }
  
 .favourites-btn{
@@ -141,6 +143,7 @@ body{
   background-color: #BFBFBF;
   color: white;
   border: 0;
+  font-size: 21px;
 }
 
 .buttons-footer{
@@ -223,4 +226,17 @@ body{
 .btn-name-pokemon{
   border: none;
   background-color: transparent;
+}
+
+.i-favourite{
+  color: white;
+  font-size: 20px;
+}
+
+.bi-list-ul{
+  font-size: 25px;
+}
+
+.i-all{
+  margin-right: 0.4rem;
 }
