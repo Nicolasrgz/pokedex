@@ -97,14 +97,20 @@ const updateLocalStorage = () => {
 
 
 const toggleShowFavourites = () => {
-  showFavourites.value = true
-  showAll.value = false
-}
+  if (pokemons.value.some(pokemon => pokemon.isFavourite)) {
+    showFavourites.value = true;
+    showAll.value = false;
+  }
+};
+
 
 const toggleShowAll = () => {
-  showAll.value = true
-  showFavourites.value = false
-}
+  if (pokemons.value.some(pokemon => !pokemon.isFavourite)) {
+    showAll.value = true;
+    showFavourites.value = false;
+  }
+};
+
 
 const displayedPokemons = computed(() => {
   let results = pokemons.value
@@ -176,23 +182,26 @@ const displayedPokemons = computed(() => {
     </div>
 
     <div class="buttons-footer d-flex" v-if="!displayedPokemons.length <= 0">
-      <div>
-        <button class="all-button" @click="toggleShowAll">
-          <div class="d-flex justify-content-center align-items-center">
-            <i  class="bi bi-list-ul i-all"></i>
-            All
-          </div>
-        </button>
+  <div>
+    <button class="all-button" @click="toggleShowAll" :style="{ backgroundColor: showAll ? '#F22539' : '#BFBFBF' }">
+      <div class="d-flex justify-content-center align-items-center">
+        <i class="bi bi-list-ul i-all"></i>
+        All
       </div>
-      <div>
-        <button class="favourites-btn" @click="toggleShowFavourites">
-          <div class="d-flex justify-content-center align-items-center">
-            <i class="bi bi-star-fill i-favourite i-all"></i>
-             Favorites
-          </div>
-        </button>
+    </button>
+  </div>
+  <div>
+    <button class="favourites-btn" @click="toggleShowFavourites" :style="{ backgroundColor: showFavourites ? '#F22539' : '#BFBFBF' }">
+      <div class="d-flex justify-content-center align-items-center">
+        <i class="bi bi-star-fill i-favourite i-all"></i>
+         Favorites
       </div>
-    </div>
+    </button>
+  </div>
+</div>
+
+
+
 
     <div v-if="showModal" class="modal">
   <div class="modal-content">
@@ -212,13 +221,43 @@ const displayedPokemons = computed(() => {
       <i role="button" class="bi bi-star-fill" :class="{ 'favourite': selectedPokemon.isFavourite }" @click="toggleFavourite(selectedPokemon)"></i>
     </div>
   </div>
-</div>
+    </div>
 
 
 </div>
 </template>
 
 <style scoped>
+.all-button{
+  width: 13.7rem;
+  height: 2.4rem;
+  border-radius: 30px;
+  background-color: #F22539;
+  color: white;
+  border: 0;
+  font-size: 21px;
+}
+ 
+.favourites-btn{
+  width: 12.3rem;
+  height: 2.4rem;
+  border-radius: 30px;
+  background-color: #BFBFBF;
+  color: white;
+  border: 0;
+  font-size: 21px;
+  
+}
+
+.favourites-btn:active{
+  background-color: #F22539;
+}
+
+.all-button:active{
+  background-color: #BFBFBF;
+}
+
+
 /* Estilos para el modal y su contenido */
 .modal {
   display: block; /* Cambia "none" a "block" para que el modal se muestre */
