@@ -14,6 +14,7 @@ onMounted(async () => {
     const data = await response.json()
     pokemons.value = data.results.map(pokemon => ({ ...pokemon, isFavourite: false }))
   }, 2000) // Ajusta este valor según el tiempo de carga que desees
+  console.log(pokemons)
 })
 
 const loadPokemons = () => {
@@ -35,6 +36,10 @@ const toggleShowFavourites = () => {
   showAll.value = false
 }
 
+const backToHome = () => {
+  window.location.href = "index.html"
+}
+
 const toggleShowAll = () => {
   showAll.value = true
   showFavourites.value = false
@@ -42,6 +47,7 @@ const toggleShowAll = () => {
 
 const displayedPokemons = computed(() => {
   let results = pokemons.value
+  console.log(results)
 
   if (search.value) {
     results = results.filter(pokemon => pokemon.name.includes(search.value))
@@ -57,11 +63,6 @@ const displayedPokemons = computed(() => {
 
   return results
 })
-
-
-
-
-
 </script>
 
 <template>
@@ -104,8 +105,13 @@ const displayedPokemons = computed(() => {
     </div>
   </div>
 
+    <div class="" v-if="displayedPokemons.length <= 0">
+        <h3>UH-OH</h3>
+        <h4>You look lost on your journey!</h4>
+        <button class="all-button" @click="backToHome"><i class="bi bi-star-fill"></i> Go back home</button>
+    </div>
 
-    <div class="buttons-footer d-flex">
+    <div class="buttons-footer d-flex" v-if="!displayedPokemons.length <= 0">
       <div>
         <button class="all-button" @click="toggleShowAll"><i class="bi bi-list-ul"></i> All</button>
       </div>
