@@ -22,14 +22,6 @@ const loadPokemons = () => {
 
 const search = ref('')
 
-const filteredPokemons = computed(() => {
-  if (search.value) {
-    return pokemons.value.filter(pokemon => pokemon.name.includes(search.value))
-  } else {
-    return pokemons.value
-  }
-})
-
 const toggleFavourite = (pokemon) => {
   pokemon.isFavourite = !pokemon.isFavourite
 }
@@ -51,16 +43,22 @@ const toggleShowAll = () => {
 const displayedPokemons = computed(() => {
   let results = pokemons.value
 
-  if (showFavourites.value && pokemons.value.some(pokemon => pokemon.isFavourite)) {
-    results = results.filter(pokemon => pokemon.isFavourite)
-  }
-
   if (search.value) {
     results = results.filter(pokemon => pokemon.name.includes(search.value))
   }
 
+  if (showFavourites.value) {
+    if (pokemons.value.some(pokemon => pokemon.isFavourite)) {
+      results = results.filter(pokemon => pokemon.isFavourite)
+    } else {
+      showFavourites.value = false
+    }
+  }
+
   return results
 })
+
+
 
 
 
