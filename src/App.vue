@@ -161,18 +161,18 @@ const displayedPokemons = computed(() => {
     </div>
 
     <div v-for="pokemon in displayedPokemons" :key="pokemon.name">
-      <div class="container-pokemons d-flex justify-content-between align-items-center">
-        <button @click="getPokemonDetails(pokemon.name)">
-          <h4 class="color-p-favourite">{{ pokemon.name }}</h4>
+      <div class="container-pokemons d-flex align-items-center justify-content-between">
+        <button class="btn-name-pokemon d-flex" @click="getPokemonDetails(pokemon.name)">
+          {{ pokemon.name }}
         </button>
-        <i role="button" class="bi bi-star-fill" :class="{ 'favourite': pokemon.isFavourite }" @click="toggleFavourite(pokemon)"></i>
+        <i role="button" class="bi bi-star-fill stars text-center d-flex justify-content-center align-items-center" :class="{ 'favourite': pokemon.isFavourite }" @click="toggleFavourite(pokemon)"></i>
       </div>
     </div>
 
-    <div class="" v-if="displayedPokemons.length <= 0">
-      <h3>UH-OH</h3>
+    <div class="div-no-found d-flex flex-column justify-content-center align-items-center" v-if="displayedPokemons.length <= 0">
+      <h3>Uh-Oh!</h3>
       <h4>You look lost on your journey!</h4>
-      <button class="all-button" @click="backToHome"><i class="bi bi-star-fill"></i> Go back home</button>
+      <button class="all-button" @click="backToHome"> Go back home</button>
     </div>
 
     <div class="buttons-footer d-flex" v-if="!displayedPokemons.length <= 0">
