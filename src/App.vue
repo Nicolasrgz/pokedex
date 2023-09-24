@@ -309,7 +309,7 @@ const displayedPokemons = computed(() => {
   background-color: #fff;
   margin: 10% auto;
   border: 1px solid #888;
-  width: 34%;
+  width: 28.1rem;
 }
 
 /* Estilos para el botón de cierre (×) en el modal */
@@ -322,6 +322,24 @@ const displayedPokemons = computed(() => {
   z-index: 2; /* Add this line */
   color: white;
   font-size: 30px;
+}
+
+@media only screen and (min-width:320px) and (max-width:470px){
+  
+.fondo-img{
+  width: 16rem;
+}
+
+.img-modal{
+  width: 14rem;
+}
+
+.border-p-modal{
+  width: 13rem;
+}
+.modal-content {
+  width: 16rem;
+}
 }
 
 </style>
