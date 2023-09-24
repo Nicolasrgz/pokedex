@@ -208,17 +208,18 @@ const displayedPokemons = computed(() => {
     <button class="close" @click="showModal = false">×</button>
     <!-- Verificar si selectedPokemon está definido antes de acceder a sus propiedades -->
     <div class="d-flex justify-content-center align-items-center">
-      <img class="img-modal" :src="selectedPokemon.sprites.front_default" alt="">
+      <!-- <img class="img-modal" :src="selectedPokemon.sprites.front_default" alt=""> -->
+      <img class="fondo-img" src="./assets/img/fondo.png" alt="">
     </div>
     <div>
-      <h2>{{ selectedPokemon.name }}</h2>
-      <p>Peso: {{ selectedPokemon.weight }}</p>
-      <p>Altura: {{ selectedPokemon.height }}</p>
-      <p>Tipo: {{ selectedPokemon.types ? selectedPokemon.types.map(type => type.type.name).join(', ') : '' }}</p>
+      <p>Name: {{ selectedPokemon.name }}</p>
+      <p>Weight: {{ selectedPokemon.weight }}</p>
+      <p>Height: {{ selectedPokemon.height }}</p>
+      <p>types: {{ selectedPokemon.types ? selectedPokemon.types.map(type => type.type.name).join(', ') : '' }}</p>
     </div>
     <div class="d-flex justify-content-between align-items-center">
-      <button class="all-button" @click="copyPokemonInfoToClipboard();"><i class="bi bi-clipboard"></i> Copiar al portapapeles</button>
-      <i role="button" class="bi bi-star-fill" :class="{ 'favourite': selectedPokemon.isFavourite }" @click="toggleFavourite(selectedPokemon)"></i>
+      <button class="btn-copy" @click="copyPokemonInfoToClipboard();"><i class="bi bi-clipboard"></i> Copiar al portapapeles</button>
+      <i role="button" class="bi bi-star-fill stars text-center d-flex justify-content-center align-items-center" :class="{ 'favourite': selectedPokemon.isFavourite }" @click="toggleFavourite(selectedPokemon)"></i>
     </div>
   </div>
     </div>
@@ -228,6 +229,11 @@ const displayedPokemons = computed(() => {
 </template>
 
 <style scoped>
+.fondo-img{
+  width: 27.4rem;
+  height: 12rem;
+}
+
 .all-button{
   width: 13.7rem;
   height: 2.4rem;
@@ -246,7 +252,17 @@ const displayedPokemons = computed(() => {
   color: white;
   border: 0;
   font-size: 21px;
-  
+}
+
+.btn-copy{
+  width: 13.7rem;
+  height: 2.4rem;
+  border-radius: 30px;
+  background-color: #F22539;
+  color: white;
+  border: 0;
+  font-size: 17px;
+  margin-bottom: 1rem;
 }
 
 .favourites-btn:active{
@@ -260,21 +276,19 @@ const displayedPokemons = computed(() => {
 
 /* Estilos para el modal y su contenido */
 .modal {
-  display: block; /* Cambia "none" a "block" para que el modal se muestre */
+  display: block;
   position: fixed;
   z-index: 1;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
   background-color: rgba(0, 0, 0, 0.7);
 }
 
 .modal-content {
   background-color: #fff;
   margin: 10% auto;
-  padding: 20px;
   border: 1px solid #888;
   width: 33%;
 }

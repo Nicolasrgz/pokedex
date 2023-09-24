@@ -125,7 +125,6 @@ body{
   margin-right: 0.6rem;
 }
 
-
 .buttons-footer{
   gap: 2rem;
   margin: 1rem;
@@ -145,7 +144,8 @@ body{
 }
 
 .img-modal{
-  width: 8rem;
+  width: 13rem;
+  height: 10rem;
 }
 
 .btn-name-pokemon{
