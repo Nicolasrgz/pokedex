@@ -11,14 +11,13 @@ const selectedPokemon = ref({})
 const showModal = ref(false)
 
 onMounted(async () => {
-  // Simula un tiempo de carga inicial
+
   setTimeout(async () => {
     initialLoad.value = false;
     const response = await fetch('https://pokeapi.co/api/v2/pokemon');
     const data = await response.json();
     pokemons.value = data.results.map(pokemon => ({ ...pokemon, isFavourite: false }));
 
-    // Verifica si hay Pokémon favoritos en el localStorage
     const favouritesFromLocalStorage = JSON.parse(localStorage.getItem('favourites'));
     if (Array.isArray(favouritesFromLocalStorage)) {
       pokemons.value.forEach(pokemon => {
@@ -27,7 +26,7 @@ onMounted(async () => {
         }
       });
     }
-  }, 2000); // Ajusta este valor según el tiempo de carga que desees
+  }, 2000);
 });
 
 const getPokemonDetails = async (pokemonName) => {
@@ -67,14 +66,14 @@ const copyPokemonInfoToClipboard = () => {
   }
 };
 
-
 const loadPokemons = () => {
   isLoading.value = false
 }
 
-const backToHome = () => {
-  window.location.href = "index.html"
-}
+const updateLocalStorage = () => {
+  const favourites = pokemons.value.filter(pokemon => pokemon.isFavourite).map(pokemon => pokemon.name);
+  localStorage.setItem('favourites', JSON.stringify(favourites));
+};
 
 const toggleFavourite = (pokemon) => {
   const isFavourite = pokemon.isFavourite;
@@ -89,13 +88,6 @@ const toggleFavourite = (pokemon) => {
   updateLocalStorage();
 };
 
-
-const updateLocalStorage = () => {
-  const favourites = pokemons.value.filter(pokemon => pokemon.isFavourite).map(pokemon => pokemon.name);
-  localStorage.setItem('favourites', JSON.stringify(favourites));
-};
-
-
 const toggleShowFavourites = () => {
   if (pokemons.value.some(pokemon => pokemon.isFavourite)) {
     showFavourites.value = true;
@@ -103,14 +95,12 @@ const toggleShowFavourites = () => {
   }
 };
 
-
 const toggleShowAll = () => {
   if (pokemons.value.some(pokemon => !pokemon.isFavourite)) {
     showAll.value = true;
     showFavourites.value = false;
   }
 };
-
 
 const displayedPokemons = computed(() => {
   let results = pokemons.value
@@ -130,6 +120,11 @@ const displayedPokemons = computed(() => {
 
   return results
 })
+
+const backToHome = () => {
+  window.location.href = "index.html"
+}
+
 </script>
 
 <template>
@@ -226,9 +221,5 @@ const displayedPokemons = computed(() => {
 
 
 </div>
+
 </template>
-
-<style scoped>
-
-
-</style>
