@@ -129,25 +129,13 @@ const backToHome = () => {
 
 <template>
   <div v-if="initialLoad" class="d-flex justify-content-center align-items-center " style="height: 100vh;">
-    <svg class="spinner" width="106" height="106" viewBox="0 0 106 106" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="53" cy="53" r="51" fill="white" stroke="#333333" stroke-width="4"/>
-      <mask id="mask0_12_49" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="106" height="53">
-        <rect width="106" height="53" fill="#C4C4C4"/>
-      </mask>
-      <g mask="url(#mask0_12_49)">
-        <circle cx="53" cy="53" r="51" fill="#F22539" stroke="#333333" stroke-width="4"/>
-      </g>
-      <path d="M0.392578 53H105.607" stroke="#333333" stroke-width="4"/>
-      <circle cx="53" cy="52.9998" r="20.8074" fill="white"/>
-      <circle cx="53" cy="52.9998" r="18.8074" stroke="#333333" stroke-width="4"/>
-      <path d="M91.731 36.7077C86.9398 25.3318 77.283 16.5081 65.3667 12.8428" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="53" cy="53.0004" r="10.3852" stroke="#808080" stroke-width="2"/>
+    <svg class="spinner" width="106" height="106" viewBox="0 0 106 106" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="53" cy="53" r="51" fill="white" stroke="#333333" stroke-width="4"/><mask id="mask0_12_49" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="106" height="53"><rect width="106" height="53" fill="#C4C4C4"/></mask><g mask="url(#mask0_12_49)">
+        <circle cx="53" cy="53" r="51" fill="#F22539" stroke="#333333" stroke-width="4"/></g><path d="M0.392578 53H105.607" stroke="#333333" stroke-width="4"/><circle cx="53" cy="52.9998" r="20.8074" fill="white"/><circle cx="53" cy="52.9998" r="18.8074" stroke="#333333" stroke-width="4"/><path d="M91.731 36.7077C86.9398 25.3318 77.283 16.5081 65.3667 12.8428" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="53" cy="53.0004" r="10.3852" stroke="#808080" stroke-width="2"/>
     </svg>
   </div>
 
   <div v-else-if="isLoading" class="welcome-page d-flex flex-column justify-content-center align-items-center g-5" style="height: 100vh;">
     <img class="pikachu-img-welcome" src="./assets/img/pikachu-welcome.png" alt="">
-
     <h1>Welcome to Pokédex</h1>
     <div class="div-p-welcome">
       <p class="text-center font-p-welcome"> The digital encyclopedia created by Professor Oak is an invaluable tool to Trainers in the Pokémon world</p>
@@ -177,23 +165,17 @@ const backToHome = () => {
     </div>
 
     <div class="buttons-footer d-flex" v-if="!displayedPokemons.length <= 0">
-  <div>
-    <button class="all-button" @click="toggleShowAll" :style="{ backgroundColor: showAll ? '#F22539' : '#BFBFBF' }">
-      <div class="d-flex justify-content-center align-items-center">
-        <i class="bi bi-list-ul i-all"></i>
-        All
+      <div>
+        <button class="all-button" @click="toggleShowAll" :style="{ backgroundColor: showAll ? '#F22539' : '#BFBFBF' }">
+          <div class="d-flex justify-content-center align-items-center"><i class="bi bi-list-ul i-all"></i>All</div>
+        </button>
       </div>
-    </button>
-  </div>
-  <div>
-    <button class="favourites-btn" @click="toggleShowFavourites" :style="{ backgroundColor: showFavourites ? '#F22539' : '#BFBFBF' }">
-      <div class="d-flex justify-content-center align-items-center">
-        <i class="bi bi-star-fill i-favourite i-all"></i>
-         Favorites
+      <div>
+        <button class="favourites-btn" @click="toggleShowFavourites" :style="{ backgroundColor: showFavourites ? '#F22539' : '#BFBFBF' }">
+          <div class="d-flex justify-content-center align-items-center"><i class="bi bi-star-fill i-favourite i-all"></i>Favorites</div>
+        </button>
       </div>
-    </button>
-  </div>
-</div>
+    </div>
 
 
 
@@ -201,7 +183,6 @@ const backToHome = () => {
     <div v-if="showModal" class="modal">
       <div class="modal-content">
         <i class="bi bi-x-circle-fill close" role="button" @click="showModal = false"></i>
-        <!-- Verificar si selectedPokemon está definido antes de acceder a sus propiedades -->
         <div class="d-flex justify-content-center align-items-center">
           <img class="img-modal" :src="selectedPokemon.sprites.front_default" alt="">
           <img class="fondo-img" src="./assets/img/fondo.png" alt="">
