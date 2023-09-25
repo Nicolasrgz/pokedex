@@ -120,11 +120,15 @@ const toggleShowFavourites = () => {
 };
 
 const toggleShowAll = () => {
-  if (pokemons.value.some(pokemon => !pokemon.isFavourite)) {
-    showAll.value = true;
-    showFavourites.value = false;
+  if (!showAll.value) {
+    if (pokemons.value.some(pokemon => !pokemon.isFavourite)) {
+      showAll.value = true;
+      showFavourites.value = false;
+    }
   }
 };
+
+
 
 const displayedPokemons = computed(() => {
   let results = pokemons.value

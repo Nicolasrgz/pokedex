@@ -179,8 +179,8 @@ body{
 }
 
 .img-modal{
-  width: 13rem;
-  height: 10rem;
+  width: 16rem;
+  height: 13rem;
   position: absolute;
   z-index: 1;
 }
@@ -267,7 +267,6 @@ body{
   font-size: 21px;
 }
 
-
 @media only screen and (min-width: 320px) and (max-width:520px){
   .button-welcome{
     width: 8rem;
@@ -277,7 +276,6 @@ body{
   .pikachu-img-welcome{
     margin-top: 4rem;
     width: 12rem;
-
   }
   
   .group {
