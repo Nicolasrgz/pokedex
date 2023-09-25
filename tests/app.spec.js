@@ -1,11 +1,11 @@
-import { mount } from '@vue/test-utils';
+const { mount } = require('@vue/test-utils');
 
-import App from '../src'
+import App from '../src/App.vue'
 
 
 
 describe('toggleFavourite', () => {
-  it('debería cambiar el estado de favorito de un Pokémon', async () => {
+  test('debería cambiar el estado de favorito de un Pokémon', async () => {
     // Crea un montaje de tu componente App
     const wrapper = mount(App)
 
