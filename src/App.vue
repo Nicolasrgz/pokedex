@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
+import Swal from 'sweetalert2';
 
 const pokemons = ref([])
 const isLoading = ref(true)
@@ -48,6 +49,7 @@ const getPokemonDetails = async (pokemonName) => {
   }
 };
 
+
 const copyPokemonInfoToClipboard = () => {
   // Verificar si selectedPokemon tiene datos antes de copiar al portapapeles
   if (selectedPokemon.value) {
@@ -58,11 +60,33 @@ const copyPokemonInfoToClipboard = () => {
       `Tipo: ${selectedPokemon.value.types ? selectedPokemon.value.types.map(type => type.type.name).join(', ') : ''}`,
     ].join(', ');
 
-    navigator.clipboard.writeText(pokemonInfo).then(() => {
-      alert('Información del Pokémon copiada al portapapeles');
-    }).catch((error) => {
+    // Crear un elemento de texto temporal para copiar al portapapeles
+    const tempInput = document.createElement('input');
+    tempInput.value = pokemonInfo;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+
+    try {
+      // Intentar copiar el texto al portapapeles
+      document.execCommand('copy');
+      Swal.fire({
+        title: 'Información del Pokémon copiada al portapapeles',
+        text: pokemonInfo,
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+      });
+    } catch (error) {
       console.error('Error al copiar al portapapeles:', error);
-    });
+      Swal.fire({
+        title: 'Error al copiar al portapapeles',
+        text: 'No se pudo copiar la información al portapapeles.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+      });
+    } finally {
+      // Eliminar el elemento de texto temporal
+      document.body.removeChild(tempInput);
+    }
   }
 };
 
