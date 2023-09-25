@@ -1,4 +1,4 @@
-<script setup>
+<script>
 import { ref, onMounted, computed } from 'vue'
 import Swal from 'sweetalert2';
 
