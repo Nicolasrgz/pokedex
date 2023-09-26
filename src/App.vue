@@ -142,7 +142,7 @@ const displayedPokemons = computed(() => {
     if (pokemons.value.some(pokemon => pokemon.isFavourite)) {
       results = results.filter(pokemon => pokemon.isFavourite)
     } else {
-      showFavourites.value = false
+      backToHome()
     }
   }
 
