@@ -5,8 +5,7 @@
 }
 
 body{
-  background-color: 
-  #E8E8E8;
+  background-color: #E8E8E8;
 }
 
 .stars{
@@ -189,7 +188,6 @@ body{
   margin-right: 1rem;
 }
 
-
 .btn-copy{
   width: 10rem;
   height: 2.4rem;
@@ -216,7 +214,6 @@ body{
   border-bottom: 0.1px solid rgba(159, 158, 158, 0.442);
 }
 
-/* Estilos para el modal y su contenido */
 .modal {
   display: block;
   position: fixed;
@@ -235,14 +232,13 @@ body{
   width: 28.1rem;
 }
 
-/* Estilos para el botón de cierre (×) en el modal */
 .close {
   position: absolute;
   top: 0;
   right: 0;
   padding: 10px;
   cursor: pointer;
-  z-index: 2; /* Add this line */
+  z-index: 2;
   color: white;
   font-size: 30px;
 }

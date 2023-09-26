@@ -49,15 +49,14 @@ const getPokemonDetails = async (pokemonName) => {
   }
 };
 
-
 const copyPokemonInfoToClipboard = () => {
   // Verificar si selectedPokemon tiene datos antes de copiar al portapapeles
   if (selectedPokemon.value) {
     const pokemonInfo = [
-      `Nombre: ${selectedPokemon.value.name}`,
-      `Peso: ${selectedPokemon.value.weight}`,
-      `Altura: ${selectedPokemon.value.height}`,
-      `Tipo: ${selectedPokemon.value.types ? selectedPokemon.value.types.map(type => type.type.name).join(', ') : ''}`,
+      `name: ${selectedPokemon.value.name}`,
+      `weight: ${selectedPokemon.value.weight}`,
+      `height: ${selectedPokemon.value.height}`,
+      `types: ${selectedPokemon.value.types ? selectedPokemon.value.types.map(type => type.type.name).join(', ') : ''}`,
     ].join(', ');
 
     // Crear un elemento de texto temporal para copiar al portapapeles
@@ -70,18 +69,18 @@ const copyPokemonInfoToClipboard = () => {
       // Intentar copiar el texto al portapapeles
       document.execCommand('copy');
       Swal.fire({
-        title: 'Información del Pokémon copiada al portapapeles',
+        title: 'Pokémon information copied to clipboard',
         text: pokemonInfo,
         icon: 'success',
-        confirmButtonText: 'Aceptar',
+        confirmButtonText: 'Ok',
       });
     } catch (error) {
-      console.error('Error al copiar al portapapeles:', error);
+      console.error('Error copying to clipboard:', error);
       Swal.fire({
-        title: 'Error al copiar al portapapeles',
-        text: 'No se pudo copiar la información al portapapeles.',
+        title: 'Error copying to clipboard',
+        text: 'Could not copy information to clipboard.',
         icon: 'error',
-        confirmButtonText: 'Aceptar',
+        confirmButtonText: 'Ok',
       });
     } finally {
       // Eliminar el elemento de texto temporal
@@ -128,8 +127,6 @@ const toggleShowAll = () => {
   }
 };
 
-
-
 const displayedPokemons = computed(() => {
   let results = pokemons.value
   console.log(results)
@@ -145,14 +142,12 @@ const displayedPokemons = computed(() => {
       backToHome()
     }
   }
-
   return results
 })
 
 const backToHome = () => {
   window.location.href = "index.html"
 }
-
 </script>
 
 <template>
@@ -205,9 +200,6 @@ const backToHome = () => {
       </div>
     </div>
 
-
-
-
     <div v-if="showModal" class="modal">
       <div class="modal-content">
         <i class="bi bi-x-circle-fill close" role="button" @click="showModal = false"></i>
@@ -227,8 +219,5 @@ const backToHome = () => {
         </div>
       </div>
     </div>
-
-
 </div>
-
 </template>
