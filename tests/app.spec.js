@@ -6,13 +6,13 @@ import App from '../src/App.vue'
 
 describe('toggleFavourite', () => {
   test('debería cambiar el estado de favorito de un Pokémon', async () => {
-    // Crea un montaje de tu componente App
+    // Crea un montaje del componente App
     const wrapper = mount(App)
 
-    // Obtén la referencia a la lista de pokemons
+    // Obtén la referencia en la lista de pokemons
     const pokemons = wrapper.vm.pokemons
 
-    // Simula un Pokémon y agrégalo a la lista de pokemons
+    // Simula un Pokémon y lo agrega a la lista de pokemons
     const pokemon = { name: 'Pikachu', isFavourite: false }
     pokemons.push(pokemon)
 
@@ -33,8 +33,6 @@ describe('toggleFavourite', () => {
 
     // Verifica si el estado de favorito se ha revertido correctamente
     expect(pokemon.isFavourite).toBe(false)
-
-    // Limpia el montaje después de la prueba
     wrapper.destroy()
   })
 })
